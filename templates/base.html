@@ -1,0 +1,34 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>App</title>
+    <meta name="description" content="App">
+
+    {% assets 'css_all' %}
+      <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% assets 'js_all' %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% block head %}{% endblock %}
+
+  </head>
+  <body>
+
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+    {% block body %}{% endblock %}
+
+    <script type=text/javascript>
+      /* URL needed for Flask requests */
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,14 @@
+backports-abc==0.5
+certifi==2017.7.27.1
+click==6.7
+Flask==0.12.2
+Flask-Assets==0.12
+itsdangerous==0.24
+Jinja2==2.9.6
+livereload==2.5.1
+MarkupSafe==1.0
+singledispatch==3.4.0.3
+six==1.10.0
+tornado==4.5.1
+webassets==0.12.1
+Werkzeug==0.12.2

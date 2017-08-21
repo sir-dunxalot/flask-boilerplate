@@ -1,0 +1,21 @@
+{
+  "name": "flask-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sir-dunxalot/flask-boilerplate.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sir-dunxalot/flask-boilerplate/issues"
+  },
+  "homepage": "https://github.com/sir-dunxalot/flask-boilerplate#readme",
+  "devDependencies": {
+  }
+}
