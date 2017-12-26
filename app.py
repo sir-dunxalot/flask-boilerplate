@@ -1,5 +1,4 @@
 import os
-import requests
 
 from flask import Flask, g, jsonify, render_template, request
 from flask_assets import Environment, Bundle
@@ -52,10 +51,7 @@ def index():
 
 @app.errorhandler(500)
 def internal_server_error(error):
-  return render_template('500.html',
-    event_id = g.sentry_event_id,
-    public_dsn = sentry.client.get_public_dsn('https')
-  )
+  return render_template('500.html')
 
 if __name__ == '__main__':
-  app.run()
+  app.run(host = '0.0.0.0', port = 80)
