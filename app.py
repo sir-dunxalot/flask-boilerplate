@@ -19,13 +19,18 @@ assets.load_path = [
 
 # Preprocess scss and bundle CSS
 
+# css = Bundle(
+#   # Paths to CSS dependencies you don't want to run through scss go here
+#   Bundle(
+#     'styles/app.scss',
+#     filters = 'scss',
+#     depends = ('**/*.scss', '**/**/*.scss'),
+#   ),
+#   output = 'css-dist.css'
+# )
+
 css = Bundle(
-  # Paths to CSS dependencies you don't want to run through scss go here
-  Bundle(
-    'styles/app.scss',
-    filters = 'scss',
-    depends = ('**/*.scss', '**/**/*.scss'),
-  ),
+  'styles/app.css',
   output = 'css-dist.css'
 )
 
@@ -35,7 +40,7 @@ assets.register('css-dist', css)
 
 js = Bundle(
   'scripts/app.js',
-  filters = 'jsmin',
+  # filters = 'jsmin',
   output = 'js-dist.js'
 )
 
