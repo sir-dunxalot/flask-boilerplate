@@ -3,14 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jebi</title>
     <meta name="description" content="App">
 
-    {% assets 'css_all' %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+
+    {% assets 'css-dist' %}
       <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></script>
     {% endassets %}
 
-    {% assets 'js_all' %}
+    {% assets 'js-dist' %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
 

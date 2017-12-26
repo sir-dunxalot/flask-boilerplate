@@ -1,8 +1,8 @@
 import os
+import requests
 
-from flask import Flask, jsonify, render_template
+from flask import Flask, g, jsonify, render_template, request
 from flask_assets import Environment, Bundle
-from livereload import Server
 
 # App setup
 
@@ -10,9 +10,7 @@ app = Flask(__name__)
 
 assets = Environment(app)
 
-# https://github.com/lepture/python-livereload/issues/144
-app.debug = True
-app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True # https://github.com/lepture/python-livereload/issues/144
 
 # Tell flask-assets where to look for assets
 
@@ -27,21 +25,22 @@ css = Bundle(
   Bundle(
     'styles/app.scss',
     filters = 'scss',
+    depends = ('**/*.scss', '**/**/*.scss'),
   ),
-  output = 'css_all.css'
+  output = 'css-dist.css'
 )
 
-assets.register('css_all', css)
+assets.register('css-dist', css)
 
 # Bundle JS
 
 js = Bundle(
   'scripts/app.js',
   filters = 'jsmin',
-  output = 'js_all.js'
+  output = 'js-dist.js'
 )
 
-assets.register('js_all', js)
+assets.register('js-dist', js)
 
 # Pages
 
@@ -49,16 +48,14 @@ assets.register('js_all', js)
 def index():
   return render_template('index.html')
 
-# Endpoints
+# Note, error handler's don't trigger when flask's debug mode is enabled
 
-@app.route('/_get_data')
-def getData():
-  return # Query DB, third-party service, etc here
-
-# Init
+@app.errorhandler(500)
+def internal_server_error(error):
+  return render_template('500.html',
+    event_id = g.sentry_event_id,
+    public_dsn = sentry.client.get_public_dsn('https')
+  )
 
 if __name__ == '__main__':
-
-  server = Server(app.wsgi_app)
-  server.watch('/templates/*')
-  server.serve()
+  app.run()

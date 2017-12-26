@@ -8,10 +8,8 @@ sudo gem install sass
 git clone git@github.com:sir-dunxalot/flask-boilerplate.git <project-name> # Clone repo
 cd <project-name>
 
-virtualenv <project-name> --no-site-packages # Create the virtualenv without requiring all locally-installed packages
+virtualenv --no-site-packages --distribute .env && source .env/bin/activate && pip install -r requirements.txt # Create the virtualenv and install dependencies
 
-source <project-name>/bin/activate # Start the virtual env
-pip install -r requirements.txt # Install backend dependencies
 npm install # Install frontend dependencies
 
 git remote set-url origin git@github.com:<your-username>/<project-name>.git # If you want to use Github
@@ -28,12 +26,17 @@ Comes with the following packages installed:
 
 ```sh
 # Start the virtualenv if you haven't already
-source jebbit-product-health-env/bin/activate
 
-# Run the server
-python app.py # Visit http://127.0.0.1:5500/
+source .env/bin/activate # Start the virtual env
 
-# Remember: when you want to stop working in the virtualenv, run the following
+export FLASK_DEBUG=1 && export FLASK_APP=app.py
+
+flask run
+```
+
+If you want to stop working in the virtualenv, run the following:
+
+```sh
 deactivate
 ```
 
