@@ -1,51 +1,45 @@
 ## Installation
 
+Create a new docker container, using flask-boilerplate as the base:
+
 ```sh
-# First, install the global requirements if they're not already installed on the machine
-pip install virtualenv
-sudo gem install sass
+FROM sirdunxalot/flask-boilerplate
 
-git clone git@github.com:sir-dunxalot/flask-boilerplate.git <project-name> # Clone repo
-cd <project-name>
-
-virtualenv --no-site-packages --distribute .env && source .env/bin/activate && pip install -r requirements.txt # Create the virtualenv and install dependencies
-
-npm install # Install frontend dependencies
-
-git remote set-url origin git@github.com:<your-username>/<project-name>.git # If you want to use Github
+COPY ./app /app
 ```
 
-Comes with the following packages installed:
-
-- flask
-- flask_assets
-- jsmin
-- livereload
-
-## Running the server
+## Running the server in development
 
 ```sh
-# Start the virtualenv if you haven't already
+docker build -t <image-name> .
 
-source .env/bin/activate # Start the virtual env
+# Without Flask debugging server
 
-export FLASK_DEBUG=1 && export FLASK_APP=app
+docker run -d --name <image-name> -p 80:80 -v $(pwd)/app:/app -e FLASK_APP=main.py -e FLASK_DEBUG=1 <image-name> flask run --host=0.0.0.0 --port=80
 
-flask run
+# OR with Flask debugging server
+
+docker run -d --name <image-name> -p 80:80 -v $(pwd)/app:/app -e FLASK_APP=main.py -e FLASK_DEBUG=1 <image-name> bash -c "while true ; do sleep 10 ; done"
+
+docker exec -it <image-name> bash
+
+flask run --host=0.0.0.0 --port=80 # Run command to start and subsequently restart server
+
 ```
 
-If you want to stop working in the virtualenv, run the following:
+You can see what containers are running:
 
 ```sh
-deactivate
+docker container ls
+```
+
+You can stop any active container:
+
+```sh
+docker container stop <container-id>
 ```
 
 ## Installing new dependencies
 
-```sh
-# Install a package like normal
-pip install packagename
-
-# Update the requirements doc
-pip freeze > requirements.txt
-```
+1. Add package name to `requirements.txt`
+2. Run docker builder command (see running server instructions)

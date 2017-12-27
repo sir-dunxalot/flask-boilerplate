@@ -3,13 +3,14 @@ import os
 from flask import Flask, g, jsonify, render_template, request
 from flask_assets import Environment, Bundle
 
+
 # App setup
 
 app = Flask(__name__)
 
 assets = Environment(app)
 
-app.config['TEMPLATES_AUTO_RELOAD'] = True # https://github.com/lepture/python-livereload/issues/144
+# app.config['TEMPLATES_AUTO_RELOAD'] = True # https://github.com/lepture/python-livereload/issues/144
 
 # Tell flask-assets where to look for assets
 
@@ -19,18 +20,13 @@ assets.load_path = [
 
 # Preprocess scss and bundle CSS
 
-# css = Bundle(
-#   # Paths to CSS dependencies you don't want to run through scss go here
-#   Bundle(
-#     'styles/app.scss',
-#     filters = 'scss',
-#     depends = ('**/*.scss', '**/**/*.scss'),
-#   ),
-#   output = 'css-dist.css'
-# )
-
 css = Bundle(
-  'styles/app.css',
+  # Paths to CSS dependencies you don't want to run through scss go here
+  Bundle(
+    'styles/app.scss',
+    filters = 'pyscss',
+    depends = ('**/*.scss', '**/**/*.scss'),
+  ),
   output = 'css-dist.css'
 )
 
@@ -40,7 +36,7 @@ assets.register('css-dist', css)
 
 js = Bundle(
   'scripts/app.js',
-  # filters = 'jsmin',
+  filters = 'jsmin',
   output = 'js-dist.js'
 )
 
@@ -59,4 +55,4 @@ def internal_server_error(error):
   return render_template('500.html')
 
 if __name__ == '__main__':
-  app.run(host = '0.0.0.0', port = 80)
+  app.run()
