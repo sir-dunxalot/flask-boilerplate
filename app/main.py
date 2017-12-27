@@ -3,14 +3,11 @@ import os
 from flask import Flask, g, jsonify, render_template, request
 from flask_assets import Environment, Bundle
 
-
 # App setup
 
 app = Flask(__name__)
 
 assets = Environment(app)
-
-# app.config['TEMPLATES_AUTO_RELOAD'] = True # https://github.com/lepture/python-livereload/issues/144
 
 # Tell flask-assets where to look for assets
 
@@ -23,24 +20,24 @@ assets.load_path = [
 css = Bundle(
   # Paths to CSS dependencies you don't want to run through scss go here
   Bundle(
-    'styles/app.scss',
+    'css/app.scss',
     filters = 'pyscss',
     depends = ('**/*.scss', '**/**/*.scss'),
   ),
-  output = 'css-dist.css'
+  output = 'dist/app.css'
 )
 
-assets.register('css-dist', css)
+assets.register('app-css', css)
 
 # Bundle JS
 
 js = Bundle(
-  'scripts/app.js',
+  'js/app.js',
   filters = 'jsmin',
-  output = 'js-dist.js'
+  output = 'dist/app.js'
 )
 
-assets.register('js-dist', js)
+assets.register('app-js', js)
 
 # Pages
 

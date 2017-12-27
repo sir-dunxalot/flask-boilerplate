@@ -9,16 +9,16 @@
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
 
-
-    {% assets 'css-dist' %}
+    {% assets 'app-css' %}
       <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></script>
     {% endassets %}
 
-    {% assets 'js-dist' %}
+    {% assets 'app-js' %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
 
-    {% block head %}{% endblock %}
+    {% block head %}
+    {% endblock %}
 
   </head>
   <body>
@@ -27,7 +27,8 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
     <![endif]-->
 
-    {% block body %}{% endblock %}
+    {% block body %}
+    {% endblock %}
 
     <script type=text/javascript>
       /* URL needed for Flask requests */
